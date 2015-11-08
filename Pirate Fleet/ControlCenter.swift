@@ -19,17 +19,29 @@ struct Ship {
     
 
 // TODO: Add the computed property, cells.
-//    var cells: [GridLocation] {
-//        get {
-//            // Hint: These two constants will come in handy
-//            let start = self.location
-//            let end: GridLocation = ShipEndLocation(self)
-//            
-//            // Hint: The cells getter should return an array of GridLocations.
-//            var occupiedCells = [GridLocation]()
-//
-//        }
-//    }
+    var cells: [GridLocation] {
+        get {
+            // Hint: These two constants will come in handy
+            let start = self.location
+            let end: GridLocation = ShipEndLocation(self)
+            
+            // Hint: The cells getter should return an array of GridLocations.
+            var occupiedCells = [GridLocation]()
+            
+            occupiedCells.append(location)
+            if isVertical {
+                for (var y = 1; y < length; y++) {
+                    occupiedCells.append(GridLocation(x: location.x, y: location.y+y))
+                }
+            } else {
+                for (var x = 1; x < length; x++) {
+                    occupiedCells.append(GridLocation(x: location.x+x, y: location.y))
+                }
+            }
+            
+            return occupiedCells
+        }
+    }
     
     var hitTracker: HitTracker
 // TODO: Add a getter for sunk. Calculate the value returned using hitTracker.cellsHit.
