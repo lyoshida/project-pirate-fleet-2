@@ -66,18 +66,25 @@ struct Ship {
 }
 
 // TODO: Change Cell protocol to PenaltyCell and add the desired properties
-protocol Cell {
+protocol PenaltyCell {
     var location: GridLocation {get}
+    var guaranteedHit: Bool {get}
+    var penaltyText: String {get}
+    
 }
 
 // TODO: Adopt and implement the PenaltyCell protocol
-struct Mine: Cell {
+struct Mine: PenaltyCell {
     let location: GridLocation
+    var guaranteedHit: Bool
+    var penaltyText: String
 }
 
 // TODO: Adopt and implement the PenaltyCell protocol
-struct SeaMonster: Cell {
+struct SeaMonster: PenaltyCell {
     let location: GridLocation
+    var guaranteedHit: Bool
+    var penaltyText: String
 }
 
 class ControlCenter {
@@ -99,16 +106,16 @@ class ControlCenter {
         let xLargeShip = Ship(length: 5, location: GridLocation(x: 7, y: 2), isVertical: true, isWooden: false)
         human.addShipToGrid(xLargeShip)
         
-        let mine1 = Mine(location: GridLocation(x: 6, y: 0))
+        let mine1 = Mine(location: GridLocation(x: 6, y: 0), guaranteedHit: false, penaltyText: "Boom!")
         human.addMineToGrid(mine1)
         
-        let mine2 = Mine(location: GridLocation(x: 3, y: 3))
+        let mine2 = Mine(location: GridLocation(x: 3, y: 3), guaranteedHit: false, penaltyText: "Boom!")
         human.addMineToGrid(mine2)
         
-        let seamonster1 = SeaMonster(location: GridLocation(x: 5, y: 6))
+        let seamonster1 = SeaMonster(location: GridLocation(x: 5, y: 6), guaranteedHit: true, penaltyText: "Computer has a guaranteed hit")
         human.addSeamonsterToGrid(seamonster1)
         
-        let seamonster2 = SeaMonster(location: GridLocation(x: 2, y: 2))
+        let seamonster2 = SeaMonster(location: GridLocation(x: 2, y: 2), guaranteedHit: false, penaltyText: "Computer has a guaranteed hit")
         human.addSeamonsterToGrid(seamonster2)
     }
     
