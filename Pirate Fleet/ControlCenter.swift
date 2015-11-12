@@ -22,8 +22,8 @@ struct Ship {
     var cells: [GridLocation] {
         get {
             // Hint: These two constants will come in handy
-            let start = self.location
-            let end: GridLocation = ShipEndLocation(self)
+//            let start = self.location
+//            let end: GridLocation = ShipEndLocation(self)
             
             // Hint: The cells getter should return an array of GridLocations.
             var occupiedCells = [GridLocation]()
@@ -46,7 +46,13 @@ struct Ship {
     var hitTracker: HitTracker
 // TODO: Add a getter for sunk. Calculate the value returned using hitTracker.cellsHit.
     var sunk: Bool {
-        return false
+        for (_, hit) in self.hitTracker.cellsHit {
+
+            if !hit {
+                return false
+            }
+        }
+        return true
     }
 
 // TODO: Add custom initializers
